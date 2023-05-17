@@ -1,0 +1,78 @@
+###
+GET http://localhost:8080/games HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+###
+POST http://localhost:8080/rents HTTP/1.1
+Content-Type: application/json
+
+{
+  "idCustomer": "{{$guid}}",
+  "games": [
+    {
+      "idGame": "452fec8f-6676-4949-8a2f-454487109fa7",
+      "daysRented": 6
+    },
+    {
+      "idGame": "1bcbece3-059f-40e6-8703-9622eed32f87",
+      "daysRented": 10
+    }
+  ]
+}
+
+###
+POST http://localhost:8080/rents HTTP/1.1
+Content-Type: application/json
+
+{
+  "idCustomer": "8e390b2c-2361-4d7e-9404-f7521e367588",
+  "games": [
+    {
+      "idGame": "452fec8f-6676-4949-8a2f-454487109fa7",
+      "daysRented": 4
+    },
+    {
+      "idGame": "1bcbece3-059f-40e6-8703-9622eed32f87",
+      "daysRented": 5
+    },
+    {
+      "idGame": "a0b4d7c2-2f1d-4c7a-8a5f-0f7a2b1a3d7e",
+      "daysRented": 6
+    }
+  ]
+}
+
+###
+GET http://localhost:8080/rents/22105f16-2f33-4256-b7d1-6b1aaf6d1587 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+###
+POST http://localhost:8080/rents/22105f16-2f33-4256-b7d1-6b1aaf6d1587/return HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "gamesIds": [
+    "1bcbece3-059f-40e6-8703-9622eed32f87"
+  ]
+}
+
+### Fixed data
+###
+GET http://localhost:8080/rents/f8931833-af4d-4637-b907-a995105dc6ed HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+###
+POST http://localhost:8080/rents/f8931833-af4d-4637-b907-a995105dc6ed/return HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "gamesIds": [
+    "1bcbece3-059f-40e6-8703-9622eed32f87",
+    "452fec8f-6676-4949-8a2f-454487109fa7"
+  ]
+}

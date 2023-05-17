@@ -1,7 +1,6 @@
 package com.videogamerental.domain;
 
 import jakarta.annotation.Nonnull;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
@@ -40,15 +39,15 @@ public class Game {
     return calculatedPrice;
   }
 
-  public Double calculateRentOverdue(@Nonnull LocalDate rentedDate) {
+  public RentOverdue calculateRentOverdue(@Nonnull LocalDate rentedDate) {
     var now = LocalDate.now();
     var returnDate = rentedDate.plusDays(this.daysRented);
 
     var diff = returnDate.until(now, ChronoUnit.DAYS);
 
-    if (diff > 0)
-      return diff * rentPrice;
-    else
-      return 0.0;
+    if (diff > 0) return new RentOverdue(diff * rentPrice, diff);
+    else return new RentOverdue(0.0, 0l);
   }
+
+  public record RentOverdue(Double price, Long days) {}
 }

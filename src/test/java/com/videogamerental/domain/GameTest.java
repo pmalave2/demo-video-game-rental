@@ -78,10 +78,11 @@ class GameTest {
         Game.builder().id(null).type(GameType.C).rentDays(5).rentPrice(3.0).daysRented(6).build();
 
     // When
-    Double calculatedPrice = game.calculateRentOverdue(LocalDate.now().minusDays(6));
+    var calculatedPrice = game.calculateRentOverdue(LocalDate.now().minusDays(6));
 
     // Then
-    assertEquals(0.0, calculatedPrice);
+    assertEquals(0.0, calculatedPrice.price());
+    assertEquals(0l, calculatedPrice.days());
   }
 
   @Test
@@ -91,9 +92,10 @@ class GameTest {
         Game.builder().id(null).type(GameType.C).rentDays(5).rentPrice(3.0).daysRented(6).build();
 
     // When
-    Double calculatedPrice = game.calculateRentOverdue(LocalDate.now().minusDays(6 + 2));
+    var calculatedPrice = game.calculateRentOverdue(LocalDate.now().minusDays(6 + 2));
 
     // Then
-    assertEquals(6.0, calculatedPrice);
+    assertEquals(6.0, calculatedPrice.price());
+    assertEquals(2l, calculatedPrice.days());
   }
 }
