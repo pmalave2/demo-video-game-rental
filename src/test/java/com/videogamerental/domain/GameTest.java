@@ -10,7 +10,7 @@ class GameTest {
   void giveNewReleaseGame_whenCalculateRentPrice_thenRetunEightPrice() {
     // Given
     Game game =
-        Game.builder().id(null).type(GameType.N).rentDays(0).rentPrice(4.0).daysRented(2).build();
+        GameNewRelease.builder().id(null).type(GameType.N).rentDays(0).rentPrice(4.0).daysRented(2).build();
 
     // When
     Double calculatedPrice = game.calculateRentPrice();
@@ -23,7 +23,7 @@ class GameTest {
   void giveStandarGame_whenCalculateRentPriceForThreeDays_thenRetunThreeAsPrice() {
     // Given
     Game game =
-        Game.builder().id(null).type(GameType.S).rentDays(3).rentPrice(3.0).daysRented(3).build();
+        GameStandard.builder().id(null).type(GameType.S).rentDays(3).rentPrice(3.0).daysRented(3).build();
 
     // When
     Double calculatedPrice = game.calculateRentPrice();
@@ -36,7 +36,7 @@ class GameTest {
   void giveStandarGame_whenCalculateRentPriceForFiveDays_thenRetunNineAsPrice() {
     // Given
     Game game =
-        Game.builder().id(null).type(GameType.S).rentDays(3).rentPrice(3.0).daysRented(5).build();
+        GameStandard.builder().id(null).type(GameType.S).rentDays(3).rentPrice(3.0).daysRented(5).build();
 
     // When
     Double calculatedPrice = game.calculateRentPrice();
@@ -49,7 +49,7 @@ class GameTest {
   void giveClassicGame_whenCalculateRentPriceForFiveDays_thenRetunThreeAsPrice() {
     // Given
     Game game =
-        Game.builder().id(null).type(GameType.C).rentDays(5).rentPrice(3.0).daysRented(5).build();
+        GameStandard.builder().id(null).type(GameType.C).rentDays(5).rentPrice(3.0).daysRented(5).build();
 
     // When
     Double calculatedPrice = game.calculateRentPrice();
@@ -62,7 +62,7 @@ class GameTest {
   void giveClassicGame_whenCalculateRentPriceForTenDays_thenRetunEighteenAsPrice() {
     // Given
     Game game =
-        Game.builder().id(null).type(GameType.C).rentDays(5).rentPrice(3.0).daysRented(10).build();
+        GameStandard.builder().id(null).type(GameType.C).rentDays(5).rentPrice(3.0).daysRented(10).build();
 
     // When
     Double calculatedPrice = game.calculateRentPrice();
@@ -75,7 +75,7 @@ class GameTest {
   void giveClassicGame_whenCalculateRentOverdueForZeroDays_thenRetunZeroAsOverduePrice() {
     // Given
     Game game =
-        Game.builder().id(null).type(GameType.C).rentDays(5).rentPrice(3.0).daysRented(6).build();
+        GameStandard.builder().id(null).type(GameType.C).rentDays(5).rentPrice(3.0).daysRented(6).build();
 
     // When
     var calculatedPrice = game.calculateRentOverdue(LocalDate.now().minusDays(6));
@@ -89,7 +89,7 @@ class GameTest {
   void giveClassicGame_whenCalculateRentOverdueForTwoDays_thenRetunSixAsOverduePrice() {
     // Given
     Game game =
-        Game.builder().id(null).type(GameType.C).rentDays(5).rentPrice(3.0).daysRented(6).build();
+        GameStandard.builder().id(null).type(GameType.C).rentDays(5).rentPrice(3.0).daysRented(6).build();
 
     // When
     var calculatedPrice = game.calculateRentOverdue(LocalDate.now().minusDays(6 + 2));

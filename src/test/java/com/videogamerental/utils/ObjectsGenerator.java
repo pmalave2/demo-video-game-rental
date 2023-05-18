@@ -4,6 +4,8 @@ import com.videogamerental.application.request.GamesItemRequest;
 import com.videogamerental.application.request.GamesRentRequest;
 import com.videogamerental.application.request.GamesReturnRequest;
 import com.videogamerental.domain.Game;
+import com.videogamerental.domain.GameNewRelease;
+import com.videogamerental.domain.GameStandard;
 import com.videogamerental.domain.GameType;
 import com.videogamerental.domain.Order;
 import com.videogamerental.infrastructure.database.entities.GameEntity;
@@ -18,7 +20,7 @@ import java.util.UUID;
 public class ObjectsGenerator {
   public static List<Game> gamesDomain() {
     return List.of(
-        Game.builder()
+        GameNewRelease.builder()
             .id(UUID.fromString("72a759bb-17c7-4151-b342-84d5c535539d"))
             .type(GameType.N)
             .name("LoZ: TotK")
@@ -26,7 +28,7 @@ public class ObjectsGenerator {
             .rentPrice(4.0)
             .daysRented(5)
             .build(),
-        Game.builder()
+        GameStandard.builder()
             .id(UUID.fromString("f1f4d6fd-367d-4a3e-bd0c-17a060516c57"))
             .type(GameType.S)
             .name("LoZ: BotW")
@@ -34,7 +36,7 @@ public class ObjectsGenerator {
             .rentPrice(3.0)
             .daysRented(5)
             .build(),
-        Game.builder()
+        GameStandard.builder()
             .id(UUID.fromString("6bee6d79-9e64-4943-89da-d5b7e5811fb4"))
             .type(GameType.C)
             .name("Super Mario Odyssey")

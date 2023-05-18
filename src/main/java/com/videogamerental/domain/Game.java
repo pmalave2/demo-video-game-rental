@@ -1,21 +1,22 @@
 package com.videogamerental.domain;
 
-import jakarta.annotation.Nonnull;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
+
+import jakarta.annotation.Nonnull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-@Builder
-public class Game {
+@SuperBuilder
+public abstract class Game {
   private UUID id;
   private GameType type;
   private String name;
@@ -24,20 +25,7 @@ public class Game {
 
   private Integer daysRented;
 
-  public Double calculateRentPrice() {
-    Double calculatedPrice;
-
-    if (GameType.N.equals(type)) {
-      calculatedPrice = this.daysRented * this.rentPrice;
-    } else {
-      calculatedPrice = this.rentPrice;
-      if (daysRented > rentDays) {
-        calculatedPrice += (daysRented - rentDays) * rentPrice;
-      }
-    }
-
-    return calculatedPrice;
-  }
+  public abstract Double calculateRentPrice();
 
   public RentOverdue calculateRentOverdue(@Nonnull LocalDate rentedDate) {
     var now = LocalDate.now();

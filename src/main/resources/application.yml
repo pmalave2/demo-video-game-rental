@@ -11,3 +11,8 @@ spring:
     defer-datasource-initialization: true
   h2:
     console.enabled: true
+
+server:
+  error:
+    include-message: always
+    include-stacktrace: on-param
