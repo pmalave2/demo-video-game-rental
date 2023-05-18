@@ -1,8 +1,8 @@
 package com.videogamerental.infrastructure.repositories.h2;
 
-import com.videogamerental.domain.Game;
 import com.videogamerental.domain.GameType;
 import com.videogamerental.domain.Order;
+import com.videogamerental.domain.factory.GameFactory;
 import com.videogamerental.domain.repository.OrderRead;
 import com.videogamerental.domain.repository.OrderSave;
 import com.videogamerental.infrastructure.database.entities.LoyaltyEntity;
@@ -36,14 +36,8 @@ public class OrderAdapter implements OrderRead, OrderSave {
             entity.getItems().stream()
                 .map(
                     elem ->
-                        Game.builder()
-                            .id(elem.getGame().getId())
-                            .type(elem.getGame().getProperties().getType())
-                            .name(elem.getGame().getName())
-                            .rentDays(elem.getGame().getProperties().getRentDays())
-                            .rentPrice(elem.getGame().getProperties().getRentPrice())
-                            .daysRented(elem.getDaysRented())
-                            .build())
+                        GameFactory.valueOf(elem.getGame().getProperties().getType().toString())
+                            .createGame(elem))
                 .toList())
         .build();
   }
