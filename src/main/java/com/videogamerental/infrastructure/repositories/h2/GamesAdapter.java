@@ -1,7 +1,7 @@
 package com.videogamerental.infrastructure.repositories.h2;
 
 import com.videogamerental.domain.Game;
-import com.videogamerental.domain.factory.GameFactory;
+import com.videogamerental.domain.GameType;
 import com.videogamerental.domain.repository.GameRead;
 import com.videogamerental.domain.repository.GameReadById;
 import com.videogamerental.infrastructure.database.entities.GameEntity;
@@ -32,6 +32,8 @@ public class GamesAdapter implements GameReadById, GameRead {
   }
 
   private static Game entityToDomain(GameEntity entity) {
-    return GameFactory.valueOf(entity.getProperties().getType().toString()).createGame(entity);
+    return GameType.valueOf(entity.getProperties().getType().toString())
+        .factory()
+        .createDomainGame(entity);
   }
 }

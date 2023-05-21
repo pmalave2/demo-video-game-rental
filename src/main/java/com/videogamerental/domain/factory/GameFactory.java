@@ -9,7 +9,7 @@ import com.videogamerental.infrastructure.database.entities.OrderItemEntity;
 public enum GameFactory {
   N {
     @Override
-    public Game createGame(OrderItemEntity obj) {
+    public Game createDomainGame(OrderItemEntity obj) {
       return GameNewRelease.builder()
           .id(obj.getGame().getId())
           .type(obj.getGame().getProperties().getType())
@@ -21,7 +21,7 @@ public enum GameFactory {
     }
 
     @Override
-    public Game createGame(GameEntity obj) {
+    public Game createDomainGame(GameEntity obj) {
       return GameNewRelease.builder()
           .id(obj.getId())
           .type(obj.getProperties().getType())
@@ -33,7 +33,7 @@ public enum GameFactory {
   },
   S {
     @Override
-    public Game createGame(OrderItemEntity obj) {
+    public Game createDomainGame(OrderItemEntity obj) {
       return GameStandard.builder()
           .id(obj.getGame().getId())
           .type(obj.getGame().getProperties().getType())
@@ -45,7 +45,7 @@ public enum GameFactory {
     }
 
     @Override
-    public Game createGame(GameEntity obj) {
+    public Game createDomainGame(GameEntity obj) {
       return GameStandard.builder()
           .id(obj.getId())
           .type(obj.getProperties().getType())
@@ -57,17 +57,17 @@ public enum GameFactory {
   },
   C {
     @Override
-    public Game createGame(OrderItemEntity obj) {
-      return GameFactory.S.createGame(obj);
+    public Game createDomainGame(OrderItemEntity obj) {
+      return GameFactory.S.createDomainGame(obj);
     }
 
     @Override
-    public Game createGame(GameEntity obj) {
-      return GameFactory.S.createGame(obj);
+    public Game createDomainGame(GameEntity obj) {
+      return GameFactory.S.createDomainGame(obj);
     }
   };
 
-  public abstract Game createGame(OrderItemEntity obj);
+  public abstract Game createDomainGame(OrderItemEntity obj);
 
-  public abstract Game createGame(GameEntity obj);
+  public abstract Game createDomainGame(GameEntity obj);
 }
