@@ -2,7 +2,6 @@ package com.videogamerental.infrastructure.repositories.h2;
 
 import com.videogamerental.domain.GameType;
 import com.videogamerental.domain.Order;
-import com.videogamerental.domain.factory.GameFactory;
 import com.videogamerental.domain.repository.OrderRead;
 import com.videogamerental.domain.repository.OrderReadAll;
 import com.videogamerental.domain.repository.OrderSave;
@@ -107,8 +106,9 @@ public class OrderAdapter implements OrderRead, OrderSave, OrderReadAll {
             entity.getItems().stream()
                 .map(
                     elem ->
-                        GameFactory.valueOf(elem.getGame().getProperties().getType().toString())
-                            .createGame(elem))
+                        GameType.valueOf(elem.getGame().getProperties().getType().toString())
+                            .factory()
+                            .createDomainGame(elem))
                 .toList())
         .build();
   }
