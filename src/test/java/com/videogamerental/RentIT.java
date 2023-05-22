@@ -45,9 +45,9 @@ class RentIT {
 
   @Test
   @Transactional
-  void givenRentOrderReques_whenGetAllRentOrders_thenReturnGamesRentResponseListWithOneElement() throws Exception {
-    mvc.perform(
-            get("/rents").accept(MediaType.APPLICATION_JSON))
+  void givenRentOrderReques_whenGetAllRentOrders_thenReturnGamesRentResponseListWithOneElement()
+      throws Exception {
+    mvc.perform(get("/rents").accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(1)));
   }

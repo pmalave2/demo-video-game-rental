@@ -1,8 +1,7 @@
 package com.videogamerental.domain.repository;
 
-import java.util.List;
-
 import com.videogamerental.domain.Order;
+import java.util.List;
 
 public interface OrderReadAll {
   List<Order> findAll();

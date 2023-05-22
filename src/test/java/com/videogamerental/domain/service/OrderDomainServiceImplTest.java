@@ -6,22 +6,20 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import com.videogamerental.domain.Order;
 import com.videogamerental.domain.repository.GameReadById;
 import com.videogamerental.domain.repository.OrderRead;
 import com.videogamerental.domain.repository.OrderReadAll;
 import com.videogamerental.domain.repository.OrderSave;
 import com.videogamerental.utils.ObjectsGenerator;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 class OrderDomainServiceImplTest {
@@ -117,5 +115,4 @@ class OrderDomainServiceImplTest {
     verify(orderReadAll).findAll();
     assertEquals(1, response.size());
   }
-
 }

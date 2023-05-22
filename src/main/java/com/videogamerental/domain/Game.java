@@ -1,10 +1,9 @@
 package com.videogamerental.domain;
 
+import jakarta.annotation.Nonnull;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
-
-import jakarta.annotation.Nonnull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
