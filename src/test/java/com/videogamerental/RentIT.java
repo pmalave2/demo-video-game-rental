@@ -42,4 +42,13 @@ class RentIT {
             get("/rents/f8931833-af4d-4637-b907-a995105dc6ea").accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isBadRequest());
   }
+
+  @Test
+  @Transactional
+  void givenRentOrderReques_whenGetAllRentOrders_thenReturnGamesRentResponseListWithOneElement()
+      throws Exception {
+    mvc.perform(get("/rents").accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(1)));
+  }
 }

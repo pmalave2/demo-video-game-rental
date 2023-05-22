@@ -3,19 +3,21 @@ package com.videogamerental.infrastructure.repositories.h2;
 import com.videogamerental.domain.GameType;
 import com.videogamerental.domain.Order;
 import com.videogamerental.domain.repository.OrderRead;
+import com.videogamerental.domain.repository.OrderReadAll;
 import com.videogamerental.domain.repository.OrderSave;
 import com.videogamerental.infrastructure.database.entities.LoyaltyEntity;
 import com.videogamerental.infrastructure.database.entities.OrderEntity;
 import com.videogamerental.infrastructure.database.entities.OrderItemEntity;
 import com.videogamerental.infrastructure.exceptions.GameNotFoundInfrastructureException;
 import com.videogamerental.infrastructure.exceptions.OrderNotFoundInfrastructureException;
+import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
-public class OrderAdapter implements OrderRead, OrderSave {
+public class OrderAdapter implements OrderRead, OrderSave, OrderReadAll {
   private final H2OrderRepository h2OrderRepository;
   private final H2OrderItemRepository h2OrderItemRepository;
   private final H2GameRepository h2GameRepository;
@@ -27,19 +29,7 @@ public class OrderAdapter implements OrderRead, OrderSave {
 
     if (!entityOptional.isPresent()) throw new OrderNotFoundInfrastructureException();
 
-    var entity = entityOptional.get();
-    return Order.builder()
-        .id(entity.getId())
-        .date(entity.getDate())
-        .games(
-            entity.getItems().stream()
-                .map(
-                    elem ->
-                        GameType.valueOf(elem.getGame().getProperties().getType().toString())
-                            .factory()
-                            .createDomainGame(elem))
-                .toList())
-        .build();
+    return mapOrderEntityToOrder(entityOptional.get());
   }
 
   @Override
@@ -100,5 +90,26 @@ public class OrderAdapter implements OrderRead, OrderSave {
               .build();
       h2LoyaltyRepository.save(loyaltyEntity);
     }
+  }
+
+  @Override
+  public List<Order> findAll() {
+    return h2OrderRepository.findAll().stream().map(this::mapOrderEntityToOrder).toList();
+  }
+
+  private Order mapOrderEntityToOrder(OrderEntity entity) {
+    return Order.builder()
+        .id(entity.getId())
+        .idCustomer(entity.getIdCustomer())
+        .date(entity.getDate())
+        .games(
+            entity.getItems().stream()
+                .map(
+                    elem ->
+                        GameType.valueOf(elem.getGame().getProperties().getType().toString())
+                            .factory()
+                            .createDomainGame(elem))
+                .toList())
+        .build();
   }
 }

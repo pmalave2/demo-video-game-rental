@@ -5,6 +5,7 @@ import com.videogamerental.application.request.GamesReturnRequest;
 import com.videogamerental.application.response.GamesRentResponse;
 import com.videogamerental.application.response.GamesReturnResponse;
 import com.videogamerental.domain.service.OrderDomainService;
+import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -35,5 +36,10 @@ public class RentController {
   public GamesReturnResponse gameReturn(
       @PathVariable(required = true) UUID id, @RequestBody @Validated GamesReturnRequest obj) {
     return orderDomainService.calculateGameReturn(id, obj);
+  }
+
+  @GetMapping
+  public List<GamesRentResponse> getOrders() {
+    return orderDomainService.getRentalOrders();
   }
 }

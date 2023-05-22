@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import com.videogamerental.domain.Order;
 import com.videogamerental.domain.repository.GameReadById;
 import com.videogamerental.domain.repository.OrderRead;
+import com.videogamerental.domain.repository.OrderReadAll;
 import com.videogamerental.domain.repository.OrderSave;
 import com.videogamerental.utils.ObjectsGenerator;
 import java.time.LocalDate;
@@ -25,6 +26,7 @@ class OrderDomainServiceImplTest {
   @Mock GameReadById gameReadById;
   @Mock OrderSave orderSave;
   @Mock OrderRead orderRead;
+  @Mock OrderReadAll orderReadAll;
 
   @InjectMocks OrderDomainServiceImpl orderDomainService;
 
@@ -98,5 +100,19 @@ class OrderDomainServiceImplTest {
     verify(gameReadById, times(2)).findById(any(UUID.class));
     verify(orderSave).save(any(Order.class));
     assertEquals(29, response.getTotal());
+  }
+
+  @Test
+  void givenRequest_whenGetAllRentalOrders_thenReturnGamesRentResponseListWithOneElement() {
+    // Given
+    var orders = List.of(ObjectsGenerator.orderDomain());
+    when(orderReadAll.findAll()).thenReturn(orders);
+
+    // When
+    var response = orderDomainService.getRentalOrders();
+
+    // Then
+    verify(orderReadAll).findAll();
+    assertEquals(1, response.size());
   }
 }
