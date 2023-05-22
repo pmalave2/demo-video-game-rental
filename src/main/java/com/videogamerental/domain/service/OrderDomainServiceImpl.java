@@ -10,6 +10,7 @@ import com.videogamerental.domain.Game;
 import com.videogamerental.domain.Order;
 import com.videogamerental.domain.repository.GameReadById;
 import com.videogamerental.domain.repository.OrderRead;
+import com.videogamerental.domain.repository.OrderReadAll;
 import com.videogamerental.domain.repository.OrderSave;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class OrderDomainServiceImpl implements OrderDomainService {
   private final GameReadById gameReadById;
   private final OrderSave orderSave;
   private final OrderRead orderRead;
+  private final OrderReadAll orderReadAll;
 
   @Override
   public GamesRentResponse createRentalOrder(GamesRentRequest obj) {
@@ -130,5 +132,10 @@ public class OrderDomainServiceImpl implements OrderDomainService {
         .games(gamesResponse)
         .total(total)
         .build();
+  }
+
+  @Override
+  public List<GamesRentResponse> getRentalOrders() {
+    return orderReadAll.findAll().stream().map(this::calculateRent).toList();
   }
 }
